@@ -1,0 +1,192 @@
+#include<iostream>
+
+using namespace std;
+
+
+void MonsterGen(); //declaration
+string inventory{ 10 };// declare an array
+int gold = 100;
+void shop();
+
+int main() {
+	for (int i = 0; i < 10; i++)// 2) initialize with empty spaces
+		inventory[i] = ' ';
+	
+	cout << "Welcome to the text based game!" << endl;
+	int room = 1;
+	char direction;
+    while (input != 'q') {// game loop
+		
+		// 3) print the inventory
+		cout << "your inventory:" << endl;
+		for (int i = 0; i < 10; i++)
+			cout << inventory[i] << " ";
+		cout << endl;
+
+		switch (room) {
+		case 1:
+			cout << "you're in room 1, you can go (E)ast" << endl;
+			// 5) only print that it's there if you HAVEN'T picked it up
+			if (inventory[0] != 'key')
+				cout << "you see a shiny (K)ey on the floor" << endl;
+			cin >> direction;
+			if (direction == 'E')
+				room = 2;
+			// 4) get the item
+			if (input == 'K')
+				inventory[0] = 'key';
+			break;
+
+		case 2:
+			MonsterGen(); //Function call
+			cout << "you're in room 2, you can go (W)est, (N)orth, or (S)outh" << endl;
+			cin >> direction;
+			if (direction == 'W')
+				room = 1;
+			if (direction == 'N')
+				if (inventory[0] == 'Key') {
+					cout << "You can unlock the door with the key!" << endl;
+					inventory[0] = ' ';
+					room = 3;
+				}
+				else cout << "the door is locked." << endl;
+			if (direction == 'S')
+				room = 4;
+			break;
+		case 3:
+			MonsterGen();
+			cout << "you're in room 3, you can go (S)outh" << endl;
+			cin >> direction;
+			if (direction == 'S')
+				room = 2;
+			break;
+		case 4:
+			MonsterGen();
+			cout << "you're in room 4 you can go (N)orth or (E)ast" << endl;
+			cin >> direction;
+			if (direction == 'N')
+				room = 2;
+			if (direction == 'E')
+				room = 5;
+			break;
+		case 5:
+			MonsterGen();
+			cout << "you're in room 5 you can go (W)est or (E)ast" << endl;
+			cout << "There's a (s)hop in the corner." << endl;
+			cin >> direction;
+			if (direction == 'W')
+				room = 4;
+			if (direction == 'E')
+				room = 6;
+			break;
+		case 6:
+			MonsterGen();
+			cout << "you're in room 6, you can go (W)est or (N)orth" << endl;
+			cin >> direction;
+			if (direction == 'W')
+				room = 5;
+			if (direction =='N')
+				room = 7;
+			break; 
+		case 7:
+			MonsterGen();
+			cout << "you're in room 7, you can go (S)outh or (N)orth" << endl;
+			cin >> direction;
+			if (direction == 'S')
+				room = 6;
+			if (direction == 'N')
+				room = 8;
+			break;
+		case 8:
+			MonsterGen();
+			cout << "you're in room 8, you can go (S)outh or (E)ast" << endl;
+			cin >> direction;
+			if (direction == 'S')
+				room = 7;
+			if (direction == 'E')
+				room = 9;
+			break;
+		case 9:
+			MonsterGen();
+			cout << "you're in room 9, you can go (W)est or (E)ast" << endl;
+			cin >> direction;
+			if (direction == 'W')
+				room = 8;
+			if (direction == 'E')
+				room = 10;
+			break;
+		case 10:
+			MonsterGen();
+			cout << "you're in room 10, you can go (W)est" << endl;
+			cin >> direction;
+			if (direction == 'W')
+				room = 9;
+			break;
+		}//end of switch
+	}//end of gameloop
+}//end of main
+
+
+
+
+
+
+
+
+void MonsterGen() { //definition
+	int num = rand() % 100; //creates a number between 1-100
+	if (num < 15) //15% chance of Slime
+		cout << "A Slime appeared!" << endl;
+	else if (num < 20) //5% chance of Alien
+		cout << "A Alien appeared!" << endl;
+	else if (num < 50) //30% chance of Alien spider
+		cout << "A Alien spider appeared!" << endl;
+	else if (num < 75) //25% chance of Queen Alien
+		cout << "!WARNING! A QUEEN ALIEN APPEARED!" << endl;
+	else //40% chance
+		cout << "Nothing appeared." << endl;
+
+
+	void shop() {
+		int input = 'a';
+		while(input != 'q'){
+		cout << "Welcome to the shop!" << endl;
+		cout << "Items for sale;" << endl;
+		cout << "1) cupcake: $5" << endl;
+		cout << "2) dirty sock: $10" << endl;
+		cout << "3) Key: $50" << endl;
+		cout << "q to quit" << endl;
+		cout << "your gold: " << gold << gold
+
+		cout << "What would you like to purchase?" << endl;
+		cin >> input;
+		
+		if (input == 1) {
+			if (gold >= 5) {
+				cout << "you bought the cupcake!" << endl;
+				inventory[1] = "cupcake";
+				gold -= 5;
+			}
+			else
+				cout << "you don't have enough gold!" endl;
+
+		}
+		else if (input == 2) {
+			if (gold >= 10) {
+				cout << "you bought the dirty sock!" << endl;
+				inventory[2] = "dirty sock";
+				gold -= 10;
+			}
+			else
+				cout << "you don't have enough gold!"
+		}
+		
+		else if (input == 3) {
+			cout << "you bought the Key!" << endl;
+			inventory[0] = "Key";
+			gold -= 50;
+		}
+
+
+		}
+	}
